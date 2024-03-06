@@ -28,9 +28,7 @@ Consider a network that consists of $k$ feed-forward layers with non-linearity a
 
 The Forward-Forward algorithm eliminates the need for backpropagation by using two forward passes, namely, a positive pass and a negative pass. Consider an input image $I$ where the task is to classify it from $k$ target classes. In Forward-Forward, the first $k$ pixels of the first row of the image (top-left) is replaced with the one-hot encoding of a  label $0 <= L < k$. If the one-hot encoding $L$ corresponds to the ground-truth label if the input image $I$, the resulting image is considered a positive sample $I_P$, and if $L$ is different from the ground-truth label, the corresponding image is considered a negative sample $I_N$. For each batch of data, we will get one $I_P$ image, and we sample a single negative sample $I_N$ randomly. At step 0, the outputs of the first layer are calculated for the set of positive $I_P$ and negative $I_N$ samples. Let $g_{pos}$ and $g_{neg}$ represent the feature representations of this layer for a batch of data. The following objective function is then calculated as the loss:
 
-    ``loss = torch.log(1 + torch.exp(torch.cat([
-                    -g_pos.pow(2) + self.threshold,
-                    g_neg.pow(2) - self.threshold]))).mean()``
+    ``loss = torch.log(1 + torch.exp(torch.cat([-g_pos.pow(2) + self.threshold, g_neg.pow(2) - self.threshold]))).mean()``
 
 This loss function encourages the positive data to have a high norm, and the negative data to have a smaller norm, using a threshold. If trained properly, for images with correct labels encoded inside them, the network outputs highly activated neurons, whereas for images with wrong labels inside them, the network outputs would be close to zero. Therefore, for a target image during test time, they encode it $L$ times, using each one-hot encoding of each label. This gives us a set of $L$ images corresponding to the same test image. Then, they pass the resulting encoded images through the network and calculate $L$ activation values. The arg max of these activation values is considered the predicted label for the input test image.
 
