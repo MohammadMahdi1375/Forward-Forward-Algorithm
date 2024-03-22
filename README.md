@@ -8,6 +8,10 @@
     - [List of Machine Learning techniques and their corresponding hyperparameters](#ML_setting)
 
 6. [Experimental Results](#experimental_results)
+    - [Audio MNIST](#AUDIOMNIST)
+    - [Human Speech Emotion Classification (RAVDESS)](#ravdess)
+    - [Google Speech Dataset](#google_speech)
+
 
 
 ## <a name='introduction'></a> Introduction
@@ -17,7 +21,7 @@ The Forward-Forward algorithm is a greedy multi-layer learning approach that is 
 
 The Forward-Forward algorithm is somewhat slower than Backpropagation but their speed is comparable. One of the advantages of Forward-Forward algorithm is that it can be utilized even when the exact details of the forward computation are unknown. Moreover, it has the benefit of being able to learn while pipelining sequential data through a neural network without having to store neural activities or pause to propagate error derivatives. One of the main drawbacks of this approach is that it cannot generalize very well on several of the toy problems investigated in this project. The Forward-Forward algorithm has potential superiority over backpropagation in two areas: as a model for learning in the cortex and as a means of utilizing low-power analog hardware without resorting to reinforcement learning.
 
-In this project, the application and goodness of Forward-Forward algorithm are supposed to be investigated in the field of Speech Processing. All of the implementations are based on Convolutional Neural Networks (CNNs). Morover, the effectiveness of this approach in case of training a CNN model from scratch and training a CNN model using the Transfer learning method is explored. It should be noted that, in this project, different datasets with assorted numbers of samples are employed with the aim of demonstrating the effectiveness of this approach in the field of speech processing and considering various scenarios. Accordingly, three kinds of public datasets were employed named "Ausio MNIST", "Human Speech Emotion Classification", and "Google Speech Command".
+In this project, the application and goodness of Forward-Forward algorithm are supposed to be investigated in the field of Speech Processing. All of the implementations are based on Convolutional Neural Networks (CNNs). Moreover, the effectiveness of this approach in the case of training a CNN model from scratch and training a CNN model using the Transfer learning method is explored. It should be noted that, in this project, different datasets with assorted numbers of samples are employed with the aim of demonstrating the effectiveness of this approach in the field of speech processing and considering various scenarios. Accordingly, three kinds of public datasets were employed named "Ausio MNIST", "Human Speech Emotion Classification", and "Google Speech Command".
 
 There are several innovations in this project that were adopted in order to achieve promising results: 1) The way of generating the "Negative Samples" 2) True labels were injected into the model, in the first layer of the Fully-Connected part of the CNN with the aim of preventing from forgetting the labels.
 
@@ -128,10 +132,10 @@ The last database that has been employed is called Google Speech Command Dataset
 As I indicated previously, the adopted Architecture for the CNN models has been drawn from the AlexNet architecture and I just revise it to be more compatible with training from scratch. For example, I just used 3 out of 5 convolutional layers because it was the optimum number of layers.
 
 #### <a name='cnn_layers'></a> Number of input and output channels, kernel size, stride, and padding
-Similar to what I told about the number of layers, this hyperparameters were set according to the AlexNet architecture.
+Similar to what I told you about the number of layers, these hyperparameters were set according to the AlexNet architecture.
 
 #### <a name='fc_layers'></a> Number of Linear layers and their corresponding number of neurons
-As can be seen, here there is no need for the last layer of Fully-Connected layer of the Forwar-Forward algorithm to have number of classes output neurons becasue it computes the goodness of each layer for each label and predicts the output by applying argmax on it. These number of neurons are the best among the others bacause I tested different number of nurons and number of linear layers and these values are the best.
+As can be seen, here there is no need for the last layer of Fully-Connected layer of the Forwar-Forward algorithm to have number of classes output neurons because it computes the goodness of each layer for each label and predicts the output by applying argmax on it. These number of neurons are the best among the others because I tested different numbers of neurons and the number of linear layers and these values are the best.
 
 #### <a name='activation_func'></a> Activation Function
 The activation functions used in this project are ReLU and LeakyReLU. Using ReLU was our preference because it is a simpler and faster activation function but in some cases like the RAVDESS or Transfer Learning model of AudioMNIST, using LEakyReLU led to better performance.
@@ -143,30 +147,55 @@ In this project, BatchNormalization was used for the convolutional layers but us
 This is one of the most crucial hyperparameters in the implementation of the Forward-Forward algorithm. Setting the right value for this hyperparameter has a dramatic influence on the convergence of the model to the extent that a tiny change in this parameter can significantly improve the performance of the model. This hyperparameter is different from dataset to dataset and architecture to architecture and its values have been acquired by means of several tries and errors.
 
 #### <a name='lr'></a> Learning rate
-This hyperparameter locates the second rank in terms of the importance and effect on the convergence of the model. For example, during training on the Google Speech dataset, I couldn't achieve any convergence till I increase the learning of convolutional layers by a factor of 10. Moreover, in most of my implementations the learning rate of linear layers was equal to 0.01 or 0.05, while for the AudioMNISt dataset, my best results were achieved with a learning rate equal to 0.001.
+This hyperparameter locates the second rank in terms of the importance and effect on the convergence of the model. For example, during training on the Google Speech dataset, I couldn't achieve any convergence till I increased the learning of convolutional layers by a factor of 10. Moreover, in most of my implementations the learning rate of linear layers was equal to 0.01 or 0.05, while for the AudioMNISt dataset, my best results were achieved with a learning rate equal to 0.001.
 
 #### <a name='lr_schedular'></a> Learning rate Scheduler
 There are numerous ways by which it would be possible to change the values of the learning rate during training which can lead to better performance and results. The Learning rate scheduler that has been used in this project is based on the PLATEAU approach in which the learning rate is reduced whenever a metric (here is validation loss) has stopped improving. In the case of a lack of improvement for some specific number of epochs (patient), the learning rate is changed by a factor. It should be noted that in some of the implementations I achieved better performance without the usage of Learning Rate Scheduler. I am of the opinion that it's been because of the hyperparameter initialization of this scheduler.
 
 
 ## <a name='experimental_results'></a> Experimental Results
-In this part, the experimental results of our mdoel is presented and discussed. There are numeruus evaluation metrics by which we can assess the performance of our model. In the following, we will enumerate them:
+In this part, the experimental results of our model is presented and discussed. There are numerous evaluation metrics by which we can assess the performance of our model. In the following, we will enumerate them:
 
 **_Accuracy_:** It is a metric mainly used when the distribution of different classes is uniform.
 
-**_Precision_:** It is another metric representing the performance of our model on the positive classes. To put it another way, as the precision gets large, more positive class identifications will be correct. Actually, Precision tries to answer this question that what proportion of positive identifications was actually correct.
+**_Precision_:** It is another metric representing the performance of our model on the positive classes. To put it another way, as the precision gets larger, more positive class identifications will be correct. Actually, Precision tries to answer this question that what proportion of positive identifications was actually correct.
 
-**_Recall_:** Recall is an important metric when recognizing positive samples is essential. Actually, Precision tries to answer this question that what proportion of actual positives was identified correctly?
+**_Recall_:** Recall is an important metric when recognizing positive samples is essential. Actually, Precision tries to answer this question what proportion of actual positives was identified correctly?
 
 **_F1-score_:** It is a metric that is used to strike a balance between Recall and Precision.
 
-**_Confusion Matrix_:** In Confusion Matrix, the model’s number of data assigned to each class can be obtained. TP, FP, TN, and FN can be obtained through this amount of data which shows the strength of our model in terms of classifying our datasets into their corresponding classes.
+**_Confusion Matrix_:** In the Confusion Matrix, the model’s number of data assigned to each class can be obtained. TP, FP, TN, and FN can be obtained through this amount of data which shows the strength of our model in terms of classifying our datasets into their corresponding classes.
 
 **_Receiver Operating Characteristic (ROC)_:** The area under the curve (AUC) is a metric for comparing different classifiers regarding the ROC curve. As the ROC curve becomes closer to the step function, the AUC grows and close to 1, and consequently, a better classification is done.
 
-After intorducing the employed evaluation metric, we will get through different datasets in order to present the obtained results of each of them individually and compare their results with the BackPropagation algorithm.
+After introducing the employed evaluation metric, we will get through different datasets in order to present the obtained results of each of them individually and compare their results with the BackPropagation algorithm.
+
+#### <a name='AUDIOMNIST'></a> Audio MNIST
+In this section, the results of our Forward-Forward (FF) and BackPropagation (BP)algorithm have been provided. Among the following tables, the first and second ones are the results of our Forward-Forward algorithm on the Fine-tuned model (using AlexNet), respectively. Moreover, the third and fourth ones are the comparison between Forward-Forward and backpropagation algorithms on a CNN model (training from scratch) and Fine-tuned model (using AlexNet), respectively.
+
+According to the achieved results, our Forward-Forward algorithm performs very well compared to the BackPropagation and their results are thoroughly comparable. Our obtained results for this dataset are inferior compared to the previous dataset. However, it is rational because the number of employed data for Audio MNIST is more than the RAVDESS and that's why this data set was pretty challenging and I had to train it for more number of epochs.
 
 
+_Table 5: The result of Forward Forward Algorithm on a Fine-tuned Model_
 
+| Metric               |  value |
+|:-----------:         |:------:|
+| Train loss           |  0.889 |
+| Validation Accuracy  |  66.97 |
+| Testing Accuracy     |  64.52 |
+| Recall               |  64.04 |
+| Precision            |  63.93 |
+| F1-Score             |  62.96 |
+
+
+_Table 6: Comparison between Forward-Forward and BackPropagation algorithm on a Fine-tuned Model_
+
+| FF train loss | FF Valid Accuracy | FF test Accuracy | BP train loss | BP Valid Accuracy | BP test Accuracy|
+|:-----------:         |:------:| :------:| :------:| :------:| :------:|
+| 0.889 | 66.97 | 64.52 | 0.105 | 66.05 | 67.28|
+
+#### <a name='ravdess'></a> Human Speech Emotion Classification (RAVDESS)
+
+#### <a name='google_speech'></a> Google Speech Dataset
 
 
