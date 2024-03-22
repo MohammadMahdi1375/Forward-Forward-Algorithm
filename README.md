@@ -149,8 +149,22 @@ This hyperparameter locates the second rank in terms of the importance and effec
 There are numerous ways by which it would be possible to change the values of the learning rate during training which can lead to better performance and results. The Learning rate scheduler that has been used in this project is based on the PLATEAU approach in which the learning rate is reduced whenever a metric (here is validation loss) has stopped improving. In the case of a lack of improvement for some specific number of epochs (patient), the learning rate is changed by a factor. It should be noted that in some of the implementations I achieved better performance without the usage of Learning Rate Scheduler. I am of the opinion that it's been because of the hyperparameter initialization of this scheduler.
 
 
+## <a name='experimental_results'></a> Experimental Results
+In this part, the experimental results of our mdoel is presented and discussed. There are numeruus evaluation metrics by which we can assess the performance of our model. In the following, we will enumerate them:
 
+**_Accuracy_:** It is a metric mainly used when the distribution of different classes is uniform.
 
+**_Precision_:** It is another metric representing the performance of our model on the positive classes. To put it another way, as the precision gets large, more positive class identifications will be correct. Actually, Precision tries to answer this question that what proportion of positive identifications was actually correct.
+
+**_Recall_:** Recall is an important metric when recognizing positive samples is essential. Actually, Precision tries to answer this question that what proportion of actual positives was identified correctly?
+
+**_F1-score_:** It is a metric that is used to strike a balance between Recall and Precision.
+
+**_Confusion Matrix_:** In Confusion Matrix, the model’s number of data assigned to each class can be obtained. TP, FP, TN, and FN can be obtained through this amount of data which shows the strength of our model in terms of classifying our datasets into their corresponding classes.
+
+**_Receiver Operating Characteristic (ROC)_:** The area under the curve (AUC) is a metric for comparing different classifiers regarding the ROC curve. As the ROC curve becomes closer to the step function, the AUC grows and close to 1, and consequently, a better classification is done.
+
+After intorducing the employed evaluation metric, we will get through different datasets in order to present the obtained results of each of them individually and compare their results with the BackPropagation algorithm.
 
 
 
