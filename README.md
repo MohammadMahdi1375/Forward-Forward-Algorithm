@@ -5,13 +5,6 @@
     - [Model](#model)
 4. [Experimental Setup](#ٍexperimental_setup)
     - [Dataset](#dataset)
-    - 
-          - [AudioMNIST](#audio_mnist)
-      
-          - [Human Speech Emotion Classification (RAVDESS)](#ravdess)
-      
-          - [Google Speech Command Database](#google_speech)
-      
     - [List of Machine Learning techniques and their corresponding hyperparameters](#ML_setting)
 
 6. [Experimental Results](#experimental_results)
