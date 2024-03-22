@@ -3,12 +3,14 @@
 2. [Methodology](#methodology)
 3.  - [Preprocessing](#preprocessing)
     - [Model](#model)
-4. [Data Prepration](#data_prepration)
-5. [Model](#model)
-    - [Preprocessing](#preprocessing)
-    - [Whisper](#whisper)
+4. [Experimental Setup](#ٍexperimental_setup)
+    - [Dataset](#dataset)
+          - [AudioMNIST](#audio_mnist)
+          - [Human Speech Emotion Classification (RAVDESS)](#ravdess)
+          - [Google Speech Command Database](#google_speech)
+    - [List of Machine Learning techniques and their corresponding hyperparameters](#ML_setting)
 
-6. [Results](#results)
+6. [Experimental Results](#experimental_results)
 
 
 ## <a name='introduction'></a> Introduction
@@ -18,7 +20,7 @@ The Forward-Forward algorithm is a greedy multi-layer learning approach that is 
 
 The Forward-Forward algorithm is somewhat slower than Backpropagation but their speed is comparable. One of the advantages of Forward-Forward algorithm is that it can be utilized even when the exact details of the forward computation are unknown. Moreover, it has the benefit of being able to learn while pipelining sequential data through a neural network without having to store neural activities or pause to propagate error derivatives. One of the main drawbacks of this approach is that it cannot generalize very well on several of the toy problems investigated in this project. The Forward-Forward algorithm has potential superiority over backpropagation in two areas: as a model for learning in the cortex and as a means of utilizing low-power analog hardware without resorting to reinforcement learning.
 
-In this project, the application and goodness of Forward-Forward algorithm are supposed to be investigated in the field of Speech Processing. All of the implementations are based on Convolutional Neural Networks (CNNs). Morover, the effectiveness of this approach in case of training a CNN model from scratch and training a CNN model using the Transfer learning method is explored. It should be noted that, in this project, different datasets with assorted number of samples are employed with the aim of demonstrating the effectiveness of this approach in the field of speech processing and considering various scenarios. Accordingly, three kinds of public datasets were employed named "Ausio MNIST", "Human Speech Emotion Classification", and "Google Speech Command".
+In this project, the application and goodness of Forward-Forward algorithm are supposed to be investigated in the field of Speech Processing. All of the implementations are based on Convolutional Neural Networks (CNNs). Morover, the effectiveness of this approach in case of training a CNN model from scratch and training a CNN model using the Transfer learning method is explored. It should be noted that, in this project, different datasets with assorted numbers of samples are employed with the aim of demonstrating the effectiveness of this approach in the field of speech processing and considering various scenarios. Accordingly, three kinds of public datasets were employed named "Ausio MNIST", "Human Speech Emotion Classification", and "Google Speech Command".
 
 There are several innovations in this project that were adopted in order to achieve promising results: 1) The way of generating the "Negative Samples" 2) True labels were injected into the model, in the first layer of the Fully-Connected part of the CNN with the aim of preventing from forgetting the labels.
 
@@ -78,16 +80,28 @@ As I mentioned earlier, in this project, the implementations are based on CNN ar
 ![CNN_BP.png](https://drive.google.com/uc?export=view&id=1Y8aIdlqe0QdN7ikGpC5Hq1hfpOJTESXA)
 
 
-Here you can see my second innovation in which after extracting the features the labels are concatenated with the flattened vector that is the output of the convolution parts. That's why the size of the flattened vector is 2058 instead of 2048. I came up with this idea because the Forward-Forward algorithm is extremely dependent on the positive and negative samples and it could assist the model to remember the labels and be able to distinguish better between the positive and negative samples. I tried concatenating labels in different layers, even the convolutional parts, but this one surpassed the others. The reason why I chose this architecture is that at the beginning of this project, I could not get any promising results which is why I made a decision to try the transfer algorithm. I evaluated various Transfer Learning methods and came up with the decision that ALexNet is better than the others in terms of performance and the size of the model. Afterward, I was thinking that maybe the architecture of the AlexNet would work for training a CNN model from scratch. That is why I came up with this model and most of the hyperparameters are based on the AlexNet. However, AlexNet has 5 convolutional layers, in my proposed architecture there are just 3 convolutional layers. It should be noted that I even tried models with more and less convolutional layers, but this architecture was the best among them.
+Here you can see my second innovation in which after extracting the features the labels are concatenated with the flattened vector that is the output of the convolution parts. That's why the size of the flattened vector is 2058 instead of 2048. I came up with this idea because the Forward-Forward algorithm is extremely dependent on the positive and negative samples and it could assist the model to remember the labels and be able to distinguish better between the positive and negative samples. I tried concatenating labels in different layers, even the convolutional parts, but this one surpassed the others. The reason why I chose this architecture is that at the beginning of this project, I could not get any promising results which is why I made a decision to try the transfer algorithm. I evaluated various Transfer Learning methods and came up with the decision that ALexNet is better than the others in terms of performance and the size of the model. Afterward, I thought that maybe the architecture of the AlexNet would work for training a CNN model from scratch. That is why I came up with this model and most of the hyperparameters are based on the AlexNet. However, AlexNet has 5 convolutional layers, in my proposed architecture there are just 3 convolutional layers. It should be noted that I even tried models with more and less convolutional layers, but this architecture was the best among them.
 
-In the following, the architectures of the Transformer-based models have been presented (The first one belongs to the Forward-Forward and the second one to the Backpropagation). As I indicated earlier, I evaluated all of the Transfer Learning models and then concluded to use AlexNet. there is a difference between the training from scratch and Transfer Learning approach. In the latter one, the extracted features are fed into the pretrained convolutional layers and then in the Fully-Connected layers that are supposed to be fine-tuned, positive and negative samples are generated while in the first one, the extracted features are converted into positive and negative at the begining of the model (input of the convolutional layers). This innovation improved the performance of the model upto 33%.
+In the following, the architectures of the Transformer-based models have been presented (The first one belongs to the Forward-Forward and the second one to the Backpropagation). As I indicated earlier, I evaluated all of the Transfer Learning models and then concluded to use AlexNet. there is a difference between training from scratch and the Transfer Learning approach. In the latter one, the extracted features are fed into the pre-trained convolutional layers, and then in the Fully-Connected layers that are supposed to be fine-tuned, positive and negative samples are generated while in the first one, the extracted features are converted into positive and negative at the beginning of the model (input of the convolutional layers). This innovation improved the performance of the model up to 33%.
 
 ![TransferLearning_FF.png](https://drive.google.com/uc?export=view&id=1S6yNFGsf_ULaLyNE2xw2jPP3EEzv-VQw)
 ![TransferLearning_BP.png](https://drive.google.com/uc?export=view&id=1KPXWlLKdqlUrYuSFhbv3_aavjD53s_BB)
 
 
+## <a name='experimental_setup'></a> Experimental Setup
+In this section, the details about the datasets employed in your experiments are provided. Enumerate the machine learning approaches utilized to address your problem and specify the corresponding hyperparameters used in each approach.
 
+### <a name='dataset'></a> Dataset
+Evaluating the performance of our model on different speech datasets was one of the tasks assigned by the professor. To fulfill this task three speech datasets with different specifications (in terms of the number of available data, number of classes, and so forth) were investigated. In the following, we will talk about them:
 
+#### <a name='audio_mnist'></a> AudioMNIST
+This is a Large public dataset of Audio MNIST, 30000 audio samples of spoken digits (0-9) of 60 different speakers [5]. The dataset consists of 30000 audio samples of spoken digits (0-9) of 60 folders and 500 files each. There is one directory per speaker holding the audio recordings. It should be noted that writing the JSON file of this number of datasets was pretty time-consuming, which is why some parts of datasets have been selected in order to be used for training, testing, and validation. In the following table, the number of data allocated for training, testing, and validation has been determined. It should be noted that the first 10 speakers have been selected for training, the next 5 speakers have been selected for validation, and the next 5 speakers are chosen for testing.
+
+| Data Type   |  # Number |
+|:-----------:|:---------:|
+| Training    |  5000 |
+| Validation  |  2000 |
+| Testing     |  2000 |
 
 
 
