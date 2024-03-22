@@ -1,7 +1,7 @@
 ## Table of contents
 1. [Introduction](#introduction)
 2. [Methodology](#methodology)
-3.  - [Preprocessing](#preprocessing)
+    - [Preprocessing](#preprocessing)
     - [Model](#model)
 4. [Experimental Setup](#ٍexperimental_setup)
     - [Dataset](#dataset)
