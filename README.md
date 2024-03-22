@@ -195,7 +195,69 @@ _Table 6: Comparison between Forward-Forward and BackPropagation algorithm on a 
 | 0.889 | 66.97 | 64.52 | 0.105 | 66.05 | 67.28|
 
 #### <a name='ravdess'></a> Human Speech Emotion Classification (RAVDESS)
+In this section, the results of our Forward-Forward (FF) and BackPropagation (BP)algorithm have been provided. Among the following tables, the first and second ones are the results of our Forward-Forward algorithm on the Fine-tuned model (using AlexNet), respectively. Moreover, the third and fourth ones are the comparison between Forward-Forward and backpropagation algorithms on a CNN model (training from scratch) and Fine-tuned model (using AlexNet), respectively.
+
+According to the achieved results, our Forward-Forward algorithm performs very well compared to the BackPropagation and their results are thoroughly comparable. Our obtained results for this dataset are inferior compared to the previous dataset. However, it is rational because the number of employed data for Audio MNIST is more than the RAVDESS and that's why this data set was pretty challenging and I had to train it for more number of epochs.
+
+
+_Table 5: The result of Forward Forward Algorithm on a Fine-tuned Model_
+
+| Metric               |  value |
+|:-----------:         |:------:|
+| Train loss           |  0.889 |
+| Validation Accuracy  |  66.97 |
+| Testing Accuracy     |  64.52 |
+| Recall               |  64.04 |
+| Precision            |  63.93 |
+| F1-Score             |  62.96 |
+
+
+_Table 6: Comparison between Forward-Forward and BackPropagation algorithm on a Fine-tuned Model_
+
+| FF train loss | FF Valid Accuracy | FF test Accuracy | BP train loss | BP Valid Accuracy | BP test Accuracy|
+|:-----------:         |:------:| :------:| :------:| :------:| :------:|
+| 0.889 | 66.97 | 64.52 | 0.105 | 66.05 | 67.28|
 
 #### <a name='google_speech'></a> Google Speech Dataset
+In this section, the results of our Forward-Forward (FF) and BackPropagation (BP)algorithm have been provided. Among the following tables, the first and second ones are the results of our Forward-Forward algorithm on a CNN model (training from scratch) and Fine-tuned model (using AlexNet), respectively. Moreover, the third and fourth ones are the comparison between Forward-Forward and backpropagation algorithms on a CNN model (training from scratch) and Fine-tuned model (using AlexNet), respectively.
 
+In this dataset, our Forward-Forward algorithm results are much better than the Backpropagation method compared to the previous datasets. Again, the results of our CNN model are close to the Backpropagation but our Fine-tuned model completely outperforms the Backpropagation. I am of the opinion that the results were because of the selected structure (because I aimed to use a close architecture for all of the datasets) and by choosing another architecture the results of both Backpropagation and Forward-Forward outperform the current one.
+
+
+
+_Table 7: The result of Forward Forward Algorithm on a CNN Model_
+
+| Metric               |  value |
+|:-----------:         |:------:|
+| Train loss           |  2.99  |
+| Validation Accuracy  |  42.81 |
+| Testing Accuracy     |  45.16 |
+| Recall               |  48.43 |
+| Precision            |  48.31 |
+| F1-Score             |  47.64 |
+
+
+_Table 8: The result of Forward Forward Algorithm on a Fine-tuned Model_
+
+| Metric               |  value |
+|:-----------:         |:------:|
+| Train loss           |  0.513 |
+| Validation Accuracy  |  83.64 |
+| Testing Accuracy     |  80.31 |
+| Recall               |  92.79 |
+| Precision            |  93.83 |
+| F1-Score             |  93.02 |
+
+
+_Table 9: Comparison between Forward-Forward and BackPropagation algorithm on a CNN Model_
+
+| FF train loss | FF Valid Accuracy | FF test Accuracy | BP train loss | BP Valid Accuracy | BP test Accuracy|
+|:-----------:         |:------:| :------:| :------:| :------:| :------:|
+| 2.99 | 42.81 | 45.16 | 6.49 | 48.61 | 49.61|
+
+_Table 10: Comparison between Forward-Forward and BackPropagation algorithm on a Fine-tuned Model_
+
+| FF train loss | FF Valid Accuracy | FF test Accuracy | BP train loss | BP Valid Accuracy | BP test Accuracy|
+|:-----------:         |:------:| :------:| :------:| :------:| :------:|
+| 0.513  |  83.64  | 80.31 | 8.06 | 51.51 | 50.38 |
 
