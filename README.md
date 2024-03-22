@@ -79,7 +79,7 @@ As I mentioned earlier, in this project, the implementations are based on CNN ar
 
 Here you can see my second innovation in which after extracting the features the labels are concatenated with the flattened vector that is the output of the convolution parts. That's why the size of the flattened vector is 2058 instead of 2048. I came up with this idea because the Forward-Forward algorithm is extremely dependent on the positive and negative samples and it could assist the model to remember the labels and be able to distinguish better between the positive and negative samples. I tried concatenating labels in different layers, even the convolutional parts, but this one surpassed the others. The reason why I chose this architecture is that at the beginning of this project, I could not get any promising results which is why I made a decision to try the transfer algorithm. I evaluated various Transfer Learning methods and came up with the decision that ALexNet is better than the others in terms of performance and the size of the model. Afterward, I thought that maybe the architecture of the AlexNet would work for training a CNN model from scratch. That is why I came up with this model and most of the hyperparameters are based on the AlexNet. However, AlexNet has 5 convolutional layers, in my proposed architecture there are just 3 convolutional layers. It should be noted that I even tried models with more and less convolutional layers, but this architecture was the best among them.
 
-In the following, the architectures of the Transformer-based models have been presented (The first one belongs to the Forward-Forward and the second one to the Backpropagation). As I indicated earlier, I evaluated all of the Transfer Learning models and then concluded to use AlexNet. there is a difference between training from scratch and the Transfer Learning approach. In the latter one, the extracted features are fed into the pre-trained convolutional layers, and then in the Fully-Connected layers that are supposed to be fine-tuned, positive and negative samples are generated while in the first one, the extracted features are converted into positive and negative at the beginning of the model (input of the convolutional layers). This innovation improved the performance of the model up to 33%.
+In the following, the architectures of the Transformer-based models have been presented (The first one belongs to the Forward-Forward and the second one to the Backpropagation). As I indicated earlier, I evaluated all of the Transfer Learning models and then decided to use AlexNet. there is a difference between training from scratch and the Transfer Learning approach. In the latter one, the extracted features are fed into the pre-trained convolutional layers, and then in the Fully-Connected layers that are supposed to be fine-tuned, positive and negative samples are generated while in the first one, the extracted features are converted into positive and negative at the beginning of the model (input of the convolutional layers). This innovation improved the performance of the model by up to 33%.
 
 ![TransferLearning_FF.png](https://drive.google.com/uc?export=view&id=1S6yNFGsf_ULaLyNE2xw2jPP3EEzv-VQw)
 ![TransferLearning_BP.png](https://drive.google.com/uc?export=view&id=1KPXWlLKdqlUrYuSFhbv3_aavjD53s_BB)
@@ -92,7 +92,7 @@ In this section, the details about the datasets employed in your experiments are
 Evaluating the performance of our model on different speech datasets was one of the tasks assigned by the professor. To fulfill this task three speech datasets with different specifications (in terms of the number of available data, number of classes, and so forth) were investigated. In the following, we will talk about them:
 
 #### <a name='audio_mnist'></a> AudioMNIST
-This is a Large public dataset of Audio MNIST, 30000 audio samples of spoken digits (0-9) of 60 different speakers [5]. The dataset consists of 30000 audio samples of spoken digits (0-9) of 60 folders and 500 files each. There is one directory per speaker holding the audio recordings. It should be noted that writing the JSON file of this number of datasets was pretty time-consuming, which is why some parts of datasets have been selected in order to be used for training, testing, and validation. In the following table, the number of data allocated for training, testing, and validation has been determined. It should be noted that the first 10 speakers have been selected for training, the next 5 speakers have been selected for validation, and the next 5 speakers are chosen for testing.
+This is a Large public dataset of Audio MNIST, 30000 audio samples of spoken digits (0-9) of 60 different speakers. The dataset consists of 30000 audio samples of spoken digits (0-9) of 60 folders and 500 files each. There is one directory per speaker holding the audio recordings. It should be noted that writing the JSON file of this number of datasets was pretty time-consuming, which is why some parts of datasets have been selected in order to be used for training, testing, and validation. In the following table, the number of data allocated for training, testing, and validation has been determined. It should be noted that the first 10 speakers have been selected for training, the next 5 speakers have been selected for validation, and the next 5 speakers are chosen for testing.
 
 | Data Type   |  # Number |
 |:-----------:|:---------:|
@@ -101,12 +101,52 @@ This is a Large public dataset of Audio MNIST, 30000 audio samples of spoken dig
 | Testing     |  2000 |
 
 
+#### <a name='ravdess'></a> Human Speech Emotion Classification (RAVDESS)
+The second database that has been employed is called the Ryerson Audio-Visual Database of Emotional Speech and Song (RAVDESS) database  which is an open-access database. This dataset is composed of 1440 files: 60 trials per actor x 24 actors = 1440. The RAVDESS dataset comprises 24 proficient performers, split evenly between male and female, who articulate two lexically similar statements in a neutral North American accent. The dataset includes seven different speech emotions, namely calm, happy, sad, angry, fearful, surprise, and disgust. Each emotion is portrayed at two levels of emotional intensity, normal and strong, alongside an additional neutral expression. In the following table, the number of data allocated for training, testing, and validation has been determined. This dataset is one of the most challenging databases because it does not have enough data for training our deep model. That's why the results of the Transfer Learning method have been provided in the results section.
+
+
+| Data Type   |  # Number |
+|:-----------:|:---------:|
+| Training    |  1005 |
+| Validation  |  218  |
+| Testing     |  217  |
+
+
+#### <a name='google_speech'></a> Google Speech Command Database
+The last database that has been employed is called Google Speech Command Dataset which is a public database. The Speech Commands Dataset is composed of 65,000 utterances that are one second long, featuring 30 brief words. These utterances are contributed by thousands of individuals from the public through the AIY website. In the following table, the number of data allocated for training, testing, and validation has been determined. It should be noted that this is also a huge database, but I couldn't use the whole data because creating the JSON file was pretty time-consuming, that is why just 10 classes of this dataset were chosen to be used for training, testing, and validation.
+
+| Data Type   |  # Number |
+|:-----------:|:---------:|
+| Training    |  5285 |
+| Validation  |  1133 |
+| Testing     |  1134 |
 
 
 
+### <a name='ML_setting'></a> List of Machine Learning techniques and their corresponding hyperparameters
+#### <a name='n_layers'></a> Number of layers of the model
+As I indicated previously, the adopted Architecture for the CNN models has been drawn from the AlexNet architecture and I just revise it to be more compatible with training from scratch. For example, I just used 3 out of 5 convolutional layers because it was the optimum number of layers.
 
+#### <a name='cnn_layers'></a> Number of input and output channels, kernel size, stride, and padding
+Similar to what I told about the number of layers, this hyperparameters were set according to the AlexNet architecture.
 
+#### <a name='fc_layers'></a> Number of Linear layers and their corresponding number of neurons
+As can be seen, here there is no need for the last layer of Fully-Connected layer of the Forwar-Forward algorithm to have number of classes output neurons becasue it computes the goodness of each layer for each label and predicts the output by applying argmax on it. These number of neurons are the best among the others bacause I tested different number of nurons and number of linear layers and these values are the best.
 
+#### <a name='activation_func'></a> Activation Function
+The activation functions used in this project are ReLU and LeakyReLU. Using ReLU was our preference because it is a simpler and faster activation function but in some cases like the RAVDESS or Transfer Learning model of AudioMNIST, using LEakyReLU led to better performance.
+
+#### <a name='norm'></a> Normalization
+In this project, BatchNormalization was used for the convolutional layers but using BatchNormalization for the linear layers was deteriorating the performance of the model. That's why the original normalizer of this approach (the one used for the classification of MNIST via MLP) that divides the input tensor by its norm was used.
+
+#### <a name='th'></a> Threshold
+This is one of the most crucial hyperparameters in the implementation of the Forward-Forward algorithm. Setting the right value for this hyperparameter has a dramatic influence on the convergence of the model to the extent that a tiny change in this parameter can significantly improve the performance of the model. This hyperparameter is different from dataset to dataset and architecture to architecture and its values have been acquired by means of several tries and errors.
+
+#### <a name='lr'></a> Learning rate
+This hyperparameter locates the second rank in terms of the importance and effect on the convergence of the model. For example, during training on the Google Speech dataset, I couldn't achieve any convergence till I increase the learning of convolutional layers by a factor of 10. Moreover, in most of my implementations the learning rate of linear layers was equal to 0.01 or 0.05, while for the AudioMNISt dataset, my best results were achieved with a learning rate equal to 0.001.
+
+#### <a name='lr_schedular'></a> Learning rate Scheduler
+There are numerous ways by which it would be possible to change the values of the learning rate during training which can lead to better performance and results. The Learning rate scheduler that has been used in this project is based on the PLATEAU approach in which the learning rate is reduced whenever a metric (here is validation loss) has stopped improving. In the case of a lack of improvement for some specific number of epochs (patient), the learning rate is changed by a factor. It should be noted that in some of the implementations I achieved better performance without the usage of Learning Rate Scheduler. I am of the opinion that it's been because of the hyperparameter initialization of this scheduler.
 
 
 
